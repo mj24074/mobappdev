@@ -32,14 +32,16 @@ public class MainActivity extends AppCompatActivity {
         prefDataStore = PrefDataStore.getInstance(this);
         binding.savebutton.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
-            prefDataStore.setString("name",text);
+            prefDataStore.setString("name", text);
         });
+
 
         binding.button.setOnClickListener((view) -> {
             var text = binding.editTextText.getText().toString();
             binding.text.setText(text);
         });
 
+        /*
         binding.editTextText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -57,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        */
 
         }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.text.setText(name));
+    }
+
+
+
 }
